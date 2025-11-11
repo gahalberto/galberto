@@ -83,6 +83,12 @@ export async function generateMetadata({
     neighborhood.summary ||
     `Conheça o bairro ${neighborhood.name} em ${neighborhood.city?.name || 'São Paulo'} e encontre imóveis disponíveis.`
   const url = `${SITE_CONFIG.url}/bairros/${neighborhood.slug}`
+  const defaultImage = {
+    url: `${SITE_CONFIG.url}/images/imagem-social.png`,
+    width: 1200,
+    height: 630,
+    alt: `${neighborhood.name} - ${SITE_CONFIG.name}`,
+  }
 
   return {
     title,
@@ -99,6 +105,16 @@ export async function generateMetadata({
       url,
       title,
       description,
+      images: neighborhood.image
+        ? [
+            {
+              url: neighborhood.image,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : [defaultImage],
       siteName: SITE_CONFIG.name,
       locale: SITE_CONFIG.locale,
     },
@@ -106,6 +122,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title,
       description,
+      images: neighborhood.image ? [neighborhood.image] : [defaultImage.url],
     },
     other: {
       'geo.region': 'BR-SP',

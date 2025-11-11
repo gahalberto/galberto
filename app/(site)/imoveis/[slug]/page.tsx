@@ -72,12 +72,20 @@ export async function generateMetadata({
   const title = `${property.title} - ${property.address?.neighborhood?.name || property.address?.district || 'São Paulo'}`
   const description = property.description.slice(0, 160)
   const url = `${SITE_CONFIG.url}/imoveis/${property.slug}`
-  const images = property.images.map((img) => ({
-    url: img.url,
-    width: img.width || 1200,
-    height: img.height || 630,
-    alt: img.alt || property.title,
-  }))
+  const defaultImage = {
+    url: `${SITE_CONFIG.url}/images/imagem-social.png`,
+    width: 1200,
+    height: 630,
+    alt: property.title,
+  }
+  const images = property.images.length > 0
+    ? property.images.map((img) => ({
+        url: img.url,
+        width: img.width || 1200,
+        height: img.height || 630,
+        alt: img.alt || property.title,
+      }))
+    : [defaultImage]
 
   return {
     title,

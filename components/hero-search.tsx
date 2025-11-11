@@ -133,8 +133,8 @@ export function HeroSearch() {
 
   return (
     <div className="w-full max-w-2xl">
-      <div className="flex gap-2 relative">
-        <div className="relative flex-1">
+      <div className="flex flex-col md:flex-row gap-2 relative">
+        <div className="relative flex-1 w-full">
           <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground z-10 pointer-events-none" />
             <Input
             placeholder="Buscar por bairro ou zona..."
@@ -222,7 +222,7 @@ export function HeroSearch() {
         <Button
           size="lg"
           onClick={handleSearch}
-          className="h-12 px-8 bg-primary hover:bg-primary/90"
+          className="h-12 px-8 bg-primary hover:bg-primary/90 w-full md:w-auto"
         >
           <Search className="mr-2 h-5 w-5" />
           Buscar

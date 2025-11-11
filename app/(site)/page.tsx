@@ -137,7 +137,7 @@ export default async function HomePage() {
         }}
       >
         {/* Overlay escuro para melhorar legibilidade do texto */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 "></div>
         <div className="container relative z-10 py-20">
           <div className="max-w-3xl space-y-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance">
@@ -151,11 +151,11 @@ export default async function HomePage() {
             {/* Busca */}
             <HeroSearch />
             
-            <div className="flex flex-wrap gap-4 pt-6">
+            <div className="flex flex-col md:flex-row gap-4 pt-6 items-center md:items-start">
               <Button 
                 size="lg" 
                 variant="secondary" 
-                className="bg-white text-primary hover:bg-white/90"
+                className="bg-white text-primary hover:bg-white/90 w-full md:w-auto"
                 asChild
               >
                 <Link href="/imoveis?allowAirbnb=true">Quero para Investimento</Link>
@@ -163,7 +163,7 @@ export default async function HomePage() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="bg-transparent text-white border-white hover:bg-primary-foreground hover:text-primary hover:border-primary-foreground"
+                className="bg-transparent text-white border-white hover:bg-primary-foreground hover:text-primary hover:border-primary-foreground w-full md:w-auto"
                 asChild
               >
                 <Link href="/imoveis?status=PRONTO">Meu Primeiro Imóvel</Link>

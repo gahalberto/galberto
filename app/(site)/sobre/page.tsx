@@ -3,11 +3,32 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { generateOrganizationJsonLd } from '@/lib/seo'
+import { SITE_CONFIG } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Sobre Nós',
   description:
     'Conheça a Gabriel Alberto Imóveis, especialista em imóveis de alto padrão em São Paulo.',
+  openGraph: {
+    title: 'Sobre Nós',
+    description:
+      'Conheça a Gabriel Alberto Imóveis, especialista em imóveis de alto padrão em São Paulo.',
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/images/imagem-social.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Sobre Nós - Gabriel Alberto Imóveis',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre Nós',
+    description:
+      'Conheça a Gabriel Alberto Imóveis, especialista em imóveis de alto padrão em São Paulo.',
+    images: [`${SITE_CONFIG.url}/images/imagem-social.png`],
+  },
 }
 
 export default function SobrePage() {

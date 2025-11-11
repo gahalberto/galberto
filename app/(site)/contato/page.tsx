@@ -7,6 +7,26 @@ export const metadata: Metadata = {
   title: 'Contato',
   description:
     'Entre em contato com a Gabriel Alberto Imóveis. Estamos prontos para ajudá-lo a encontrar o imóvel perfeito.',
+  openGraph: {
+    title: 'Contato',
+    description:
+      'Entre em contato com a Gabriel Alberto Imóveis. Estamos prontos para ajudá-lo a encontrar o imóvel perfeito.',
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/images/imagem-social.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Contato - Gabriel Alberto Imóveis',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contato',
+    description:
+      'Entre em contato com a Gabriel Alberto Imóveis. Estamos prontos para ajudá-lo a encontrar o imóvel perfeito.',
+    images: [`${SITE_CONFIG.url}/images/imagem-social.png`],
+  },
 }
 
 export default function ContatoPage() {

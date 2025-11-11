@@ -642,7 +642,7 @@ export function PropertyForm({ property, amenities }: PropertyFormProps) {
                   placeholder="Selecione o estado"
                   searchPlaceholder="Buscar estado..."
                   emptyMessage="Nenhum estado encontrado"
-                />
+              />
               )}
               {errors.stateId && (
                 <p className="text-sm text-destructive mt-1">{errors.stateId.message}</p>
@@ -669,7 +669,7 @@ export function PropertyForm({ property, amenities }: PropertyFormProps) {
                 <p className="text-sm text-destructive mt-1">{errors.cityId.message}</p>
               )}
             </div>
-          </div>
+            </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

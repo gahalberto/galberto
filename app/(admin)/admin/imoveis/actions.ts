@@ -258,12 +258,12 @@ export async function updateProperty(id: string, formData: FormData) {
 
     // Update address with new hierarchical structure
     if (property.addressId) {
-      await db.address.update({
-        where: { id: property.addressId },
-        data: {
-          street: validated.street,
+    await db.address.update({
+      where: { id: property.addressId },
+      data: {
+        street: validated.street,
           streetNumber: validated.streetNumber || validated.number || '',
-          complement: validated.complement || null,
+        complement: validated.complement || null,
           postalCode: validated.postalCode || validated.zipcode || '',
           neighborhoodId: validated.neighborhoodId,
           lat: validated.lat,
@@ -274,8 +274,8 @@ export async function updateProperty(id: string, formData: FormData) {
           state: validated.state || null,
           zipcode: validated.zipcode || validated.postalCode || null,
           country: validated.country || 'Brasil',
-        },
-      })
+      },
+    })
     }
 
     // Update property

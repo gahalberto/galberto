@@ -1,6 +1,7 @@
 import { PropertyCard } from '@/components/property-card'
 import { db } from '@/lib/db'
 import type { Metadata } from 'next'
+import { SITE_CONFIG } from '@/lib/constants'
 
 export const revalidate = 1800 // 30 minutes
 
@@ -8,6 +9,26 @@ export const metadata: Metadata = {
   title: 'Imóveis em São Paulo',
   description:
     'Confira nossa seleção completa de imóveis em São Paulo. Apartamentos, casas, lançamentos e muito mais.',
+  openGraph: {
+    title: 'Imóveis em São Paulo',
+    description:
+      'Confira nossa seleção completa de imóveis em São Paulo. Apartamentos, casas, lançamentos e muito mais.',
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/images/imagem-social.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Imóveis em São Paulo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Imóveis em São Paulo',
+    description:
+      'Confira nossa seleção completa de imóveis em São Paulo. Apartamentos, casas, lançamentos e muito mais.',
+    images: [`${SITE_CONFIG.url}/images/imagem-social.png`],
+  },
 }
 
 interface SearchParams {
@@ -81,7 +102,7 @@ async function getProperties(searchParams: SearchParams) {
       },
     })
   }
-  
+
   if (searchParams.district) {
     addressConditions.push({
       district: {

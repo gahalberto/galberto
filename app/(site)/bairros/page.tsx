@@ -3,6 +3,7 @@ import { MapPin } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { db } from '@/lib/db'
 import type { Metadata } from 'next'
+import { SITE_CONFIG } from '@/lib/constants'
 
 export const revalidate = 7200 // 2 hours
 
@@ -10,6 +11,26 @@ export const metadata: Metadata = {
   title: 'Bairros de São Paulo',
   description:
     'Conheça os principais bairros de São Paulo e encontre o imóvel ideal para você.',
+  openGraph: {
+    title: 'Bairros de São Paulo',
+    description:
+      'Conheça os principais bairros de São Paulo e encontre o imóvel ideal para você.',
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/images/imagem-social.png`,
+        width: 1200,
+        height: 630,
+        alt: 'Bairros de São Paulo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bairros de São Paulo',
+    description:
+      'Conheça os principais bairros de São Paulo e encontre o imóvel ideal para você.',
+    images: [`${SITE_CONFIG.url}/images/imagem-social.png`],
+  },
 }
 
 async function getNeighborhoods() {
