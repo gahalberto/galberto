@@ -1,0 +1,11 @@
+[
+  {"id":5,"created_at":"2020-09-20 05:45:18","updated_at":"2020-09-20 05:45:18","deleted_at":null,"name":"Zona Sul","is_active":true},
+  {"id":6,"created_at":"2020-09-20 05:45:54","updated_at":"2020-09-20 05:45:54","deleted_at":null,"name":"Zona Oeste","is_active":true},
+  {"id":7,"created_at":"2020-09-20 05:47:24","updated_at":"2020-09-20 05:47:24","deleted_at":null,"name":"Zona Norte","is_active":true},
+  {"id":8,"created_at":"2020-09-20 05:50:49","updated_at":"2020-09-20 05:50:49","deleted_at":null,"name":"Centro","is_active":true},
+  {"id":9,"created_at":"2020-09-20 05:53:14","updated_at":"2020-09-20 05:53:14","deleted_at":null,"name":"Zona Leste","is_active":true},
+  {"id":17,"created_at":"2023-09-21 14:47:21.118162","updated_at":"2023-09-21 14:47:21.118162","deleted_at":null,"name":"ABCD","is_active":false},
+  {"id":18,"created_at":"2023-09-21 14:47:21.118162","updated_at":"2023-09-21 14:47:21.118162","deleted_at":null,"name":"Guarulhos","is_active":false},
+  {"id":19,"created_at":"2023-09-21 14:47:21.118162","updated_at":"2023-09-21 14:47:21.118162","deleted_at":null,"name":"Osasco","is_active":false},
+  {"id":20,"created_at":"2023-09-21 14:47:21.118162","updated_at":"2023-09-21 14:47:21.118162","deleted_at":null,"name":"Campinas","is_active":false},
+  {"id":21,"created_at":"2023-09-21 14:47:21.118162","updated_at":"2023-09-21 14:47:21.118162","deleted_at":null,"name":"Outros","is_active":false}]

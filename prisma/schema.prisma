@@ -1,0 +1,247 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Property {
+  id           String            @id @default(cuid())
+  slug         String            @unique
+  title        String
+  description  String            @db.Text
+  status       PropertyStatus
+  purpose      PropertyPurpose
+  price        Decimal?          @db.Decimal(12, 2)
+  condoFee     Decimal?          @db.Decimal(10, 2)
+  iptuYearly   Decimal?          @db.Decimal(10, 2)
+  areaTotal    Decimal?          @db.Decimal(10, 2)
+  areaPrivate  Decimal?          @db.Decimal(10, 2)
+  bedrooms     Int?
+  suites       Int?
+  bathrooms    Int?
+  parkingSpots Int?
+  floor        Int?
+  yearBuilt    Int?
+  deliveryDate DateTime?
+  // Relação one-to-one com Address (opcional para permitir propriedades antigas sem endereço)
+  address      Address?          @relation(fields: [addressId], references: [id])
+  addressId    Int?              @unique // one-to-one: cada Property tem exatamente um Address (opcional temporariamente)
+  amenities    PropertyAmenity[]
+  images       PropertyImage[]
+  leads        Lead[]
+  allowAirbnb  Boolean           @default(false)
+  highlights   String[]
+  // Geolocalização (legacy - pode ser derivada de address.lat/lng)
+  lat          Float? // @deprecated - usar address.lat
+  lng          Float? // @deprecated - usar address.lng
+  // SEO
+  canonicalUrl String?
+  ogImage      String?
+  // Comercial
+  developer    String?
+  realtorName  String?           @default("Gabriel Alberto")
+  // Control
+  published    Boolean           @default(false)
+  featured     Boolean           @default(false)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([purpose])
+  @@index([published])
+  @@index([addressId])
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  propertyId String
+  url        String
+  alt        String?
+  width      Int?
+  height     Int?
+  position   Int      @default(0)
+  createdAt  DateTime @default(now())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId])
+  @@index([position])
+}
+
+model Amenity {
+  id         String            @id @default(cuid())
+  name       String            @unique
+  icon       String?
+  category   String?           @default("geral")
+  createdAt  DateTime          @default(now())
+  properties PropertyAmenity[]
+}
+
+model PropertyAmenity {
+  propertyId String
+  amenityId  String
+  amenity    Amenity  @relation(fields: [amenityId], references: [id])
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@id([propertyId, amenityId])
+  @@index([propertyId])
+  @@index([amenityId])
+}
+
+model Lead {
+  id         String    @id @default(cuid())
+  propertyId String?
+  name       String
+  email      String?
+  phone      String?
+  message    String?
+  source     String?   @default("site")
+  utm        Json?
+  createdAt  DateTime  @default(now())
+  property   Property? @relation(fields: [propertyId], references: [id])
+
+  @@index([propertyId])
+  @@index([createdAt])
+}
+
+// ============================================================================
+// MODELOS DE LOCALIZAÇÃO (State, City, Region, Neighborhood, Address)
+// ============================================================================
+// Compatíveis com estrutura TypeORM usando @@map/@map
+// Relações hierárquicas: State -> City -> Neighborhood -> Address -> Property
+
+/// Estado (UF)
+model State {
+  id        Int      @id @default(autoincrement())
+  name      String // Ex: "São Paulo"
+  code      String   @unique // Ex: "SP"
+  cities    City[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("state")
+}
+
+/// Cidade
+model City {
+  id            Int            @id @default(autoincrement())
+  name          String // Ex: "São Paulo"
+  state         State          @relation(fields: [stateId], references: [id], onDelete: Cascade)
+  stateId       Int            @map("state_id")
+  neighborhoods Neighborhood[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([stateId])
+  @@index([name])
+  @@map("city")
+}
+
+/// Região (opcional, agrupa bairros - ex: "Zona Sul")
+model Region {
+  id            Int            @id @default(autoincrement())
+  name          String // Ex: "Zona Sul"
+  isActive      Boolean        @default(false) @map("is_active")
+  neighborhoods Neighborhood[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([name])
+  @@map("region")
+}
+
+/// Bairro - relacionado a City e opcionalmente a Region
+model Neighborhood {
+  id          Int       @id @default(autoincrement())
+  slug        String    @unique
+  name        String
+  // Relações hierárquicas
+  city        City      @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  cityId      Int       @map("city_id")
+  region      Region?   @relation(fields: [regionId], references: [id], onDelete: SetNull)
+  regionId    Int?      @map("region_id")
+  addresses   Address[]
+  // Campos legacy mantidos para compatibilidade (podem ser removidos após migração)
+  cityLegacy  String?   @map("city_legacy") // antigo campo "city" como String
+  stateLegacy String?   @map("state_legacy") // antigo campo "state" como String
+  // Geolocalização (centro do bairro)
+  lat         Float?
+  lng         Float?
+  summary     String?   @db.Text
+  content     String?   @db.Text // guia do bairro (markdown)
+  // SEO
+  image       String?
+  // Stats (podem ser atualizados periodicamente)
+  avgPrice    Decimal?  @db.Decimal(12, 2)
+  // Control
+  published   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([cityId])
+  @@index([regionId])
+  @@index([name])
+  @@map("neighborhood")
+}
+
+/// Endereço - one-to-one com Property
+model Address {
+  id             Int          @id @default(autoincrement())
+  street         String       @map("street")
+  streetNumber   String       @map("street_number")
+  complement     String?      @map("complement")
+  postalCode     String       @map("postal_code")
+  // Relação com Neighborhood (bairro)
+  neighborhood   Neighborhood @relation(fields: [neighborhoodId], references: [id], onDelete: Cascade)
+  neighborhoodId Int          @map("neighborhood_id")
+  // OPÇÃO A: Geolocalização com PostGIS (descomente se usar PostGIS)
+  // location     Unsupported("geography")? @map("location")
+  // OPÇÃO B: Geolocalização com lat/lng (use se não tiver PostGIS)
+  lat            Float?       @map("lat")
+  lng            Float?       @map("lng")
+  // Relação one-to-one com Property
+  property       Property?
+  // Campos legacy mantidos temporariamente para migração gradual
+  district       String? // @deprecated - use neighborhoodId
+  city           String? // @deprecated - derivar de neighborhood.city.name
+  state          String? // @deprecated - derivar de neighborhood.city.state.code
+  zipcode        String? // @deprecated - usar postalCode
+  country        String?      @default("Brasil")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([neighborhoodId])
+  @@index([lat, lng], map: "idx_address_lat_lng") // OPÇÃO B: índice composto para lat/lng
+  // @@index([location], map: "idx_address_location", type: Gist) // OPÇÃO A: criar via SQL raw
+  @@map("address")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+enum PropertyStatus {
+  LANCAMENTO
+  EM_OBRAS
+  PRONTO
+}
+
+enum PropertyPurpose {
+  VENDA
+  ALUGUEL
+}
