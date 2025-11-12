@@ -17,6 +17,7 @@ import {
 } from '@/lib/seo'
 import type { Metadata } from 'next'
 import { LeadForm } from '@/components/lead-form'
+import { PropertyViewTracker } from '@/components/property-view-tracker'
 
 export const revalidate = 3600 // 1 hour
 
@@ -183,6 +184,7 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      <PropertyViewTracker slug={property.slug} title={property.title} />
 
       <div className="container py-8">
         {/* Breadcrumb */}

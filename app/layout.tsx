@@ -3,6 +3,7 @@ import { Inter, Montserrat } from 'next/font/google'
 import './globals.css'
 import { SITE_CONFIG } from '@/lib/constants'
 import { Analytics } from '@vercel/analytics/react'
+import { GoogleAnalytics } from '@/components/google-analytics'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' })
@@ -86,6 +87,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${montserrat.variable}`}>
         {children}
+        <GoogleAnalytics />
         <Analytics />
       </body>
     </html>

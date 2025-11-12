@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Send } from 'lucide-react'
+import { trackLead } from '@/components/google-analytics'
 
 interface LeadFormProps {
   propertyId?: string
@@ -39,6 +40,9 @@ export function LeadForm({ propertyId, propertyTitle }: LeadFormProps) {
       })
 
       if (!response.ok) throw new Error('Erro ao enviar mensagem')
+
+      // Rastrear geração de lead no Google Analytics
+      trackLead('formulario-contato', propertyId)
 
       setSuccess(true)
       ;(e.target as HTMLFormElement).reset()
