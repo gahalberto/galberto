@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Building2, Home, MapPin, Users, Settings, LogOut } from 'lucide-react'
+import { Building2, Home, MapPin, Users, Settings, LogOut, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { signOut } from 'next-auth/react'
@@ -17,6 +17,7 @@ export function AdminNav({ user }: AdminNavProps) {
   const links = [
     { href: '/admin', label: 'Dashboard', icon: Home },
     { href: '/admin/imoveis', label: 'Imóveis', icon: Building2 },
+    { href: '/admin/blog', label: 'Blog', icon: FileText },
     { href: '/admin/bairros', label: 'Bairros', icon: MapPin },
     { href: '/admin/leads', label: 'Leads', icon: Users },
   ]
@@ -33,7 +34,7 @@ export function AdminNav({ user }: AdminNavProps) {
           <nav className="hidden md:flex items-center gap-6">
             {links.map((link) => {
               const Icon = link.icon
-              const isActive = pathname === link.href
+              const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`)
               return (
                 <Link
                   key={link.href}

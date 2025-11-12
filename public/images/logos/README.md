@@ -6,3 +6,5 @@ Coloque aqui os logos da imobiliária:
 - `favicon.ico` - Favicon do site
 - `icon.png` - Ícone para PWA/mobile
 
+
+

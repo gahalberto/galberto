@@ -7,3 +7,5 @@ Coloque aqui os favicons e ícones do site:
 - `icon-192.png` - Ícone PWA 192x192
 - `icon-512.png` - Ícone PWA 512x512
 
+
+

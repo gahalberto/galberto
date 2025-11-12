@@ -7,3 +7,5 @@ Recomendações:
 - Formato: PNG ou JPG
 - Peso: máximo 1MB
 
+
+

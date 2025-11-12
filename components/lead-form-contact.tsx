@@ -91,7 +91,7 @@ export function LeadForm() {
                 id="phone"
                 name="phone"
                 required
-                placeholder="(11) 99999-9999"
+                placeholder="(11) 99491-7885"
               />
             </div>
 

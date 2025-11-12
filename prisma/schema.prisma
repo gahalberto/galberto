@@ -245,3 +245,54 @@ enum PropertyPurpose {
   VENDA
   ALUGUEL
 }
+
+// ============================================================================
+// MODELO DE BLOG
+// ============================================================================
+
+model BlogPost {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  excerpt     String        @db.Text
+  content     String        @db.Text // Markdown/MDX content
+  coverImage  String?
+  category    BlogCategory
+  // SEO
+  metaTitle   String?
+  metaDescription String?  @db.Text
+  keywords    String[]      @default([])
+  canonicalUrl String?
+  ogImage     String?
+  // Autor e publicação
+  author      String        @default("Gabriel Alberto")
+  authorBio   String?       @db.Text
+  publishedAt DateTime?
+  // FAQ opcional (JSON array de {question, answer})
+  faq         Json?
+  // Engajamento
+  views       Int           @default(0)
+  readingTime Int?          // minutos estimados
+  // Control
+  published   Boolean       @default(false)
+  featured    Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([slug])
+  @@index([category])
+  @@index([published])
+  @@index([publishedAt])
+  @@index([featured])
+  @@index([createdAt])
+}
+
+enum BlogCategory {
+  INVESTIMENTOS
+  MERCADO_IMOBILIARIO
+  FINANCIAMENTOS
+  DICAS_COMPRADORES
+  VALORIZACAO_BAIRROS
+  TENDENCIAS
+  GUIA_COMPRADOR
+}

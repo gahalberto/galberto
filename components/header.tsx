@@ -48,6 +48,13 @@ export function Header() {
             <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
           </Link>
           <Link
+            href="/blog"
+            className="text-sm font-medium text-white transition-colors hover:text-[#E9CF7E] flex items-center gap-1 group"
+          >
+            Blog
+            <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+          </Link>
+          <Link
             href="/sobre"
             className="text-sm font-medium text-white transition-colors hover:text-[#E9CF7E] flex items-center gap-1 group"
           >
@@ -111,6 +118,13 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Bairros
+            </Link>
+            <Link
+              href="/blog"
+              className="text-sm font-medium text-white transition-colors hover:text-[#E9CF7E]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
             </Link>
             <Link
               href="/sobre"

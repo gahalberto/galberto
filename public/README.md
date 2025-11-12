@@ -43,3 +43,5 @@ Ao cadastrar um imóvel no admin, você pode usar URLs locais:
 - **Open Graph**: 1200x630px, formato JPG ou PNG
 - **Favicons**: Múltiplos tamanhos (16x16, 32x32, 180x180, etc)
 
+
+

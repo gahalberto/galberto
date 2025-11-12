@@ -7,8 +7,8 @@ export const SITE_CONFIG = {
   alternateLocale: 'en',
   author: 'Gabriel Alberto',
   email: 'contato@gabrielalbertoimoveis.com.br',
-  phone: '+55 11 99999-9999',
-  whatsapp: '5511999999999',
+  phone: '+55 11 99491-7885',
+  whatsapp: '5511994917885',
   address: {
     street: 'Av. Paulista',
     number: '1000',

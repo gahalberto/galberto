@@ -49,6 +49,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
   ]
 
   // Properties
@@ -86,6 +92,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   )
 
-  return [...staticPages, ...propertySitemaps, ...neighborhoodSitemaps]
+  // Blog Posts
+  const blogPosts = await db.blogPost.findMany({
+    where: { published: true },
+    select: { slug: true, updatedAt: true, publishedAt: true },
+    orderBy: { publishedAt: 'desc' },
+  })
+
+  const blogSitemaps: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: post.updatedAt,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
+  return [
+    ...staticPages,
+    ...propertySitemaps,
+    ...neighborhoodSitemaps,
+    ...blogSitemaps,
+  ]
 }
 

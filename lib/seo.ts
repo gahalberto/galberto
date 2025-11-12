@@ -226,3 +226,100 @@ export function generateArticleJsonLd(article: {
   }
 }
 
+interface BlogPostJsonLdProps {
+  post: {
+    id: string
+    title: string
+    excerpt: string
+    slug: string
+    author: string
+    authorBio?: string | null
+    publishedAt: Date | null
+    coverImage?: string | null
+    category: string
+    keywords?: string[]
+    updatedAt: Date
+  }
+}
+
+export function generateBlogPostJsonLd({
+  post,
+}: BlogPostJsonLdProps): JsonLdBase & Record<string, any> {
+  const postUrl = `${SITE_CONFIG.url}/blog/${post.slug}`
+  const imageUrl = post.coverImage
+    ? post.coverImage.startsWith('http')
+      ? post.coverImage
+      : `${SITE_CONFIG.url}${post.coverImage}`
+    : `${SITE_CONFIG.url}/images/imagem-social.png`
+
+  const baseJsonLd: JsonLdBase & Record<string, any> = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    url: postUrl,
+    image: imageUrl,
+    datePublished: post.publishedAt?.toISOString() || new Date().toISOString(),
+    dateModified: post.updatedAt.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: post.author,
+      ...(post.authorBio && { description: post.authorBio }),
+      sameAs: [
+        SITE_CONFIG.social.instagram,
+        SITE_CONFIG.social.linkedin,
+      ],
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_CONFIG.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_CONFIG.url}/images/logos/logo-ouro.png`,
+      },
+      sameAs: [
+        SITE_CONFIG.social.instagram,
+        SITE_CONFIG.social.facebook,
+        SITE_CONFIG.social.linkedin,
+      ],
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': postUrl,
+    },
+    about: {
+      '@type': 'Thing',
+      name: 'Mercado Imobiliário',
+      description: 'Informações sobre investimentos imobiliários, mercado imobiliário em São Paulo e dicas para compradores',
+    },
+    ...(post.keywords && post.keywords.length > 0 && {
+      keywords: post.keywords.join(', '),
+    }),
+    inLanguage: SITE_CONFIG.locale,
+    articleSection: post.category,
+  }
+
+  return baseJsonLd
+}
+
+interface FAQJsonLdProps {
+  faqs: Array<{ question: string; answer: string }>
+}
+
+export function generateFAQJsonLd({
+  faqs,
+}: FAQJsonLdProps): JsonLdBase & Record<string, any> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
+}
+

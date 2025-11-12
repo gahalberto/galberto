@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator'
 import { Loader2, Plus, X, Trash2 } from 'lucide-react'
 import { createProperty, updateProperty } from '@/app/(admin)/admin/imoveis/actions'
+import { ImageUpload } from '@/components/ui/image-upload'
 
 const propertyFormSchema = z.object({
   title: z.string().min(3, 'Título deve ter pelo menos 3 caracteres'),
@@ -846,21 +847,40 @@ export function PropertyForm({ property, amenities }: PropertyFormProps) {
           <CardDescription>Adicione URLs das imagens do imóvel</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex gap-2">
-            <Input
-              value={imageInput}
-              onChange={(e) => setImageInput(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault()
-                  addImage()
-                }
-              }}
-              placeholder="https://exemplo.com/imagem.jpg"
-            />
-            <Button type="button" onClick={addImage} variant="outline">
-              <Plus className="h-4 w-4" />
-            </Button>
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Input
+                value={imageInput}
+                onChange={(e) => setImageInput(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    addImage()
+                  }
+                }}
+                placeholder="https://exemplo.com/imagem.jpg"
+              />
+              <Button type="button" onClick={addImage} variant="outline">
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="border-t pt-4">
+              <p className="text-sm text-muted-foreground mb-2">
+                Ou faça upload de uma imagem:
+              </p>
+              <ImageUpload
+                value=""
+                onChange={(url) => {
+                  const current = watch('images')
+                  setValue('images', [
+                    ...current,
+                    { url, alt: '', position: current.length },
+                  ])
+                }}
+                type="properties"
+                label="Upload de Imagem do Imóvel"
+              />
+            </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {watchedImages.map((image, index) => (
@@ -923,11 +943,18 @@ export function PropertyForm({ property, amenities }: PropertyFormProps) {
 
             <div>
               <Label htmlFor="ogImage">Imagem Open Graph (SEO)</Label>
+              <ImageUpload
+                value={watch('ogImage') || ''}
+                onChange={(url) => setValue('ogImage', url)}
+                type="properties"
+                label=""
+              />
               <Input
                 id="ogImage"
                 type="url"
                 {...register('ogImage')}
-                placeholder="https://..."
+                placeholder="Ou cole uma URL aqui"
+                className="mt-2"
               />
             </div>
           </div>

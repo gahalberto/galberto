@@ -32,6 +32,12 @@ export function Header() {
             Bairros
           </Link>
           <Link
+            href="/blog"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Blog
+          </Link>
+          <Link
             href="/sobre"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
@@ -86,6 +92,13 @@ export function Header() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Bairros
+          </Link>
+          <Link
+            href="/blog"
+            className="text-sm font-medium transition-colors hover:text-primary"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Blog
           </Link>
           <Link
             href="/sobre"
