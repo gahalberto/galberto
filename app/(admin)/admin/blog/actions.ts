@@ -78,7 +78,7 @@ export async function createBlogPost(data: z.infer<typeof blogPostSchema>) {
         readingTime: validated.readingTime || null,
         published: validated.published,
         featured: validated.featured,
-        faq: validated.faq || null,
+        faq: validated.faq ?? undefined,
       },
     })
 
@@ -145,7 +145,7 @@ export async function updateBlogPost(
         readingTime: validated.readingTime || null,
         published: validated.published,
         featured: validated.featured,
-        faq: validated.faq || null,
+        faq: validated.faq ?? undefined,
       },
     })
 
@@ -184,4 +184,5 @@ export async function deleteBlogPost(id: string) {
     }
   }
 }
+
 

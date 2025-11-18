@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 import { db } from '@/lib/db'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -205,15 +206,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <nav className="text-sm text-muted-foreground mb-4" aria-label="Breadcrumb">
               <ol className="flex items-center gap-2">
                 <li>
-                  <a href="/" className="hover:text-foreground">
+                  <Link href="/" className="hover:text-foreground">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>/</li>
                 <li>
-                  <a href="/blog" className="hover:text-foreground">
+                  <Link href="/blog" className="hover:text-foreground">
                     Blog
-                  </a>
+                  </Link>
                 </li>
                 <li>/</li>
                 <li className="text-foreground">{post.title}</li>

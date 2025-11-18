@@ -97,7 +97,7 @@ export default function PoliticaPrivacidadePage() {
             compra, venda ou investimento, bem como para a captação de
             interessados em serviços imobiliários. Oferecemos consultoria
             especializada em moradia e investimento imobiliário, com atendimento
-            personalizado no estilo buyer's agent.
+            personalizado no estilo buyer&apos;s agent.
           </p>
         </div>
 
@@ -556,7 +556,7 @@ export default function PoliticaPrivacidadePage() {
             </li>
             <li>
               <strong>Assunto:</strong> Ao enviar um e-mail, por favor, inclua
-              no assunto "Política de Privacidade" ou "LGPD" para agilizar o
+              no assunto &quot;Política de Privacidade&quot; ou &quot;LGPD&quot; para agilizar o
               atendimento
             </li>
           </ul>
@@ -604,7 +604,7 @@ export default function PoliticaPrivacidadePage() {
           <ul>
             <li>E-mail (quando aplicável)</li>
             <li>Aviso em destaque em nosso site</li>
-            <li>Atualização da data de "Última atualização" no topo desta página</li>
+            <li>Atualização da data de &quot;Última atualização&quot; no topo desta página</li>
           </ul>
           <p>
             Recomendamos que você revise esta política periodicamente para se
@@ -662,4 +662,5 @@ export default function PoliticaPrivacidadePage() {
     </main>
   )
 }
+
 

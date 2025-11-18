@@ -49,3 +49,4 @@ export function BlogSearch({ initialSearch }: BlogSearchProps) {
   )
 }
 
+

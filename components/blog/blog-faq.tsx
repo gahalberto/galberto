@@ -42,3 +42,4 @@ export function BlogFAQ({ faqs }: BlogFAQProps) {
   )
 }
 
+

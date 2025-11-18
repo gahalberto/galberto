@@ -2,6 +2,7 @@ import { db } from '@/lib/db'
 import { SITE_CONFIG } from '@/lib/constants'
 import { NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic' // Prevent static generation at build time
 export const revalidate = 3600 // 1 hour
 
 export async function GET() {
@@ -44,4 +45,5 @@ export async function GET() {
     },
   })
 }
+
 

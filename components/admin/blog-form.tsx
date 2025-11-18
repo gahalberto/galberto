@@ -47,8 +47,8 @@ const blogPostSchema = z.object({
   authorBio: z.string().optional(),
   publishedAt: z.string().optional(),
   readingTime: z.string().optional(), // String que será convertida para number
-  published: z.boolean().default(false),
-  featured: z.boolean().default(false),
+  published: z.boolean(),
+  featured: z.boolean(),
 })
 
 type BlogPostFormData = z.infer<typeof blogPostSchema>

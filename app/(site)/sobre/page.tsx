@@ -86,7 +86,7 @@ export default function SobrePage() {
 
                 {/* Parágrafo 2 */}
                 <p className="text-lg leading-relaxed text-muted-foreground">
-                  Trabalho com um modelo único de atendimento personalizado, inspirado no conceito de <strong>buyer's agent</strong>. Isso significa que você não está sozinho nessa jornada. Acompanho cada etapa do processo: desde a primeira conversa até a entrega das chaves, passando por análise de mercado, negociação estratégica e toda a burocracia necessária. Minha experiência internacional me trouxe uma visão ampla do mercado imobiliário, que aplico diariamente para encontrar as melhores oportunidades em São Paulo.
+                  Trabalho com um modelo único de atendimento personalizado, inspirado no conceito de <strong>buyer&apos;s agent</strong>. Isso significa que você não está sozinho nessa jornada. Acompanho cada etapa do processo: desde a primeira conversa até a entrega das chaves, passando por análise de mercado, negociação estratégica e toda a burocracia necessária. Minha experiência internacional me trouxe uma visão ampla do mercado imobiliário, que aplico diariamente para encontrar as melhores oportunidades em São Paulo.
                 </p>
 
                 {/* Parágrafo 3 */}
