@@ -8,6 +8,7 @@ const leadSchema = z.object({
   phone: z.string().min(10, 'Telefone inválido').optional(),
   message: z.string().optional(),
   propertyId: z.string().optional(),
+  source: z.string().optional(),
 })
 
 export async function POST(request: NextRequest) {
@@ -27,7 +28,7 @@ export async function POST(request: NextRequest) {
         phone: data.phone || null,
         message: data.message || null,
         propertyId: data.propertyId || null,
-        source: 'site',
+        source: data.source || 'site',
         utm: utmData || undefined,
       },
     })

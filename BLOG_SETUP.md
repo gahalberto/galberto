@@ -234,3 +234,4 @@ O feed RSS está disponível em `/blog/rss.xml` e inclui:
 8. **Busca avançada** (filtros múltiplos)
 
 
+

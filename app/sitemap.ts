@@ -55,6 +55,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/investir/folks-vila-mariana`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      alternates: {
+        languages: {
+          'pt-BR': `${baseUrl}/investir/folks-vila-mariana`,
+          en: `${baseUrl}/en/invest/folks-vila-mariana`,
+        },
+      },
+    },
   ]
 
   // Properties
